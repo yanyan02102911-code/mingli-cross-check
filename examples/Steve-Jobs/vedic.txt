@@ -1,0 +1,233 @@
+﻿【Vedic Export For AI】
+
+出生时间: 1955-02-24 19:15:00
+
+经纬度: -122.419400, 37.774900
+
+时区: 西8区 / UTC-08:00 (项目 birth_zone=8.00)
+
+
+
+黄道制: 恒星黄道
+
+岁差名: Lahiri
+
+岁差值: 23.235696
+
+交点算法: 真交点
+
+行星位置算法: 视位置
+
+大运类型: Vimsottari
+
+大运起点: 月亮Mo
+
+大运年天数: 365.25天
+
+
+
+星座索引表 (Sign Index)
+
+1:Aries(白羊), 2:Taurus(金牛), 3:Gemini(双子), 4:Cancer(巨蟹), 5:Leo(狮子), 6:Virgo(处女), 
+
+7:Libra(天秤), 8:Scorpio(天蝎), 9:Sagittarius(射手), 10:Capricorn(摩羯), 11:Aquarius(水瓶), 12:Pisces(双鱼)
+
+
+
+五支历 Panchanga (D1)
+
+- Tithi: 明月初三 (Shukla Tritiya) [Index:3, Start:24.00, End:36.00]
+
+- Vara: 木曜日 (Guruvara) [Index:5, Start:0.00, End:0.00]
+
+- Nakshatra: 壁宿 (Uttara Bhadrapada) [Index:26, Start:333.33, End:346.67]
+
+- Yoga: 首婆 (Shubha) [Index:23, Start:293.33, End:306.67]
+
+- Karana: 伽利惹 (Garija) [Index:6, Start:30.00, End:36.00]
+
+
+
+日出日落
+
+日出: 未返回
+
+日落: 未返回
+
+
+
+=== 分盘 D1 (Rasi) ===
+
+主星:
+
+  - Sun 星座:11 宫位:7 度数:12°31' 星宿:危宿 Pada:2 宿主:NorthNode
+
+  - Moon 星座:12 宫位:8 度数:14°31' 星宿:壁宿 Pada:4 宿主:Saturn
+
+  - Mercury 星座:10 宫位:6 [逆行] 度数:21°8' 星宿:女宿 Pada:4 宿主:Moon
+
+  - Venus 星座:9 宫位:5 度数:27°56' 星宿:斗宿 Pada:1 宿主:Sun
+
+  - Mars 星座:1 宫位:9 度数:5°51' 星宿:娄宿 Pada:2 宿主:SouthNode
+
+  - Jupiter 星座:3 宫位:11 [逆行] 度数:27°16' 星宿:井宿 Pada:3 宿主:Jupiter
+
+  - Saturn 星座:7 宫位:3 度数:27°56' 星宿:氐宿 Pada:3 宿主:Jupiter
+
+  - Uranus 星座:4 宫位:12 [逆行] 度数:0°54' 星宿:井宿 Pada:4 宿主:Jupiter
+
+  - Neptune 星座:7 宫位:3 [逆行] 度数:4°49' 星宿:角宿 Pada:4 宿主:Mars
+
+  - Pluto 星座:5 宫位:1 [逆行] 度数:2°5' 星宿:星宿 Pada:1 宿主:SouthNode
+
+  - Asc 星座:5 宫位:1 度数:29°3' 星宿:翼宿 Pada:1 宿主:Sun
+
+  - NorthNode 星座:9 宫位:5 [逆行] 度数:10°10' 星宿:尾宿 Pada:4 宿主:SouthNode
+
+  - SouthNode 星座:3 宫位:11 [逆行] 度数:10°10' 星宿:参宿 Pada:2 宿主:NorthNode
+
+虚点(Upagrahas):
+
+  - Dhuma 星座:3 宫位:11 度数:25°51' 星宿:井宿 Pada:2 宿主:Jupiter
+
+  - Vyatipaata 星座:10 宫位:6 度数:4°9' 星宿:斗宿 Pada:3 宿主:Sun
+
+  - Parivesha 星座:4 宫位:12 度数:4°9' 星宿:鬼宿 Pada:1 宿主:Saturn
+
+  - Indrachaapa 星座:9 宫位:5 度数:25°51' 星宿:箕宿 Pada:4 宿主:Venus
+
+  - Upaketu 星座:10 宫位:6 度数:12°31' 星宿:女宿 Pada:1 宿主:Moon
+
+  - kaala 星座:10 宫位:6 度数:25°6' 星宿:虚宿 Pada:1 宿主:Mars
+
+  - Mrityu 星座:6 宫位:2 度数:12°13' 星宿:轸宿 Pada:1 宿主:Moon
+
+  - Artha Praharaka 星座:7 宫位:3 度数:2°1' 星宿:角宿 Pada:3 宿主:Mars
+
+  - Yama Ghantaka 星座:7 宫位:3 度数:21°36' 星宿:氐宿 Pada:1 宿主:Jupiter
+
+  - Gulika 星座:8 宫位:4 度数:21°21' 星宿:心宿 Pada:2 宿主:Mercury
+
+  - Maandi 星座:9 宫位:5 度数:1°54' 星宿:尾宿 Pada:1 宿主:SouthNode
+
+其他Lagna:
+
+  - Bhava Lagna 星座:5 宫位:1 度数:17°27' 星宿:张宿 Pada:2 宿主:Venus
+
+  - Hora Lagna 星座:11 宫位:7 度数:22°55' 星宿:室宿 Pada:1 宿主:Jupiter
+
+  - Ghati Lagna 星座:6 宫位:2 度数:9°17' 星宿:翼宿 Pada:4 宿主:Sun
+
+  - ViGhati Lagna 星座:5 宫位:1 度数:29°30' 星宿:翼宿 Pada:1 宿主:Sun
+
+  - Pranapada Lagna 星座:11 宫位:7 度数:1°10' 星宿:虚宿 Pada:3 宿主:Mars
+
+  - Sree Lagna 星座:4 宫位:12 度数:0°52' 星宿:井宿 Pada:4 宿主:Jupiter
+
+  - Indu Lagna 星座:11 宫位:7 度数:14°31' 星宿:危宿 Pada:3 宿主:NorthNode
+
+  - Varnada Lagna 星座:4 宫位:12 度数:29°3' 星宿:柳宿 Pada:4 宿主:Mercury
+
+  - Kunda 星座:7 宫位:3 度数:13°30' 星宿:亢宿 Pada:3 宿主:NorthNode
+
+  - Yogi Point 星座:2 宫位:10 度数:0°21' 星宿:昴宿 Pada:2 宿主:Sun
+
+  - Avayogi Point 星座:8 宫位:4 度数:7°1' 星宿:房宿 Pada:2 宿主:Saturn
+
+
+
+=== 分盘 D2 (Hora) ===
+
+主星摘要:
+
+  - Asc 星座:4 宫位:1 度数:28°7' 星宿:柳宿 Pada:4 宿主:Mercury
+
+  - Sun 星座:5 宫位:2 度数:25°1' 星宿:张宿 Pada:4 宿主:Venus
+
+  - Moon 星座:4 宫位:1 度数:29°1' 星宿:柳宿 Pada:4 宿主:Mercury
+
+  - Mars 星座:5 宫位:2 度数:11°43' 星宿:星宿 Pada:4 宿主:SouthNode
+
+  - Mercury 星座:5 宫位:2 [逆行] 度数:12°15' 星宿:星宿 Pada:4 宿主:SouthNode
+
+  - Jupiter 星座:4 宫位:1 [逆行] 度数:24°33' 星宿:柳宿 Pada:3 宿主:Mercury
+
+  - Venus 星座:4 宫位:1 度数:25°52' 星宿:柳宿 Pada:3 宿主:Mercury
+
+  - Saturn 星座:4 宫位:1 度数:25°51' 星宿:柳宿 Pada:3 宿主:Mercury
+
+  - NorthNode 星座:5 宫位:2 [逆行] 度数:20°21' 星宿:张宿 Pada:3 宿主:Venus
+
+  - SouthNode 星座:5 宫位:2 [逆行] 度数:20°21' 星宿:张宿 Pada:3 宿主:Venus
+
+
+
+=== 分盘 D3 (Drekana) ===
+
+主星摘要:
+
+  - Asc 星座:1 宫位:1 度数:27°10' 星宿:昴宿 Pada:1 宿主:Sun
+
+  - Sun 星座:3 宫位:3 度数:7°32' 星宿:参宿 Pada:1 宿主:NorthNode
+
+  - Moon 星座:4 宫位:4 度数:13°32' 星宿:鬼宿 Pada:4 宿主:Saturn
+
+  - Mars 星座:1 宫位:1 度数:17°34' 星宿:胃宿 Pada:2 宿主:Venus
+
+  - Mercury 星座:6 宫位:6 [逆行] 度数:3°23' 星宿:翼宿 Pada:3 宿主:Sun
+
+  - Jupiter 星座:11 宫位:11 [逆行] 度数:21°49' 星宿:室宿 Pada:1 宿主:Jupiter
+
+  - Venus 星座:5 宫位:5 度数:23°49' 星宿:张宿 Pada:4 宿主:Venus
+
+  - Saturn 星座:3 宫位:3 度数:23°47' 星宿:井宿 Pada:2 宿主:Jupiter
+
+  - NorthNode 星座:1 宫位:1 [逆行] 度数:0°31' 星宿:娄宿 Pada:1 宿主:SouthNode
+
+  - SouthNode 星座:7 宫位:7 [逆行] 度数:0°31' 星宿:角宿 Pada:3 宿主:Mars
+
+
+
+=== 分盘 D4 (Chaturtamsa) ===
+
+主星摘要:
+
+  - Asc 星座:2 宫位:1 度数:26°13' 星宿:觜宿 Pada:1 宿主:Mars
+
+  - Sun 星座:2 宫位:1 度数:20°3' 星宿:毕宿 Pada:4 宿主:Moon
+
+  - Moon 星座:3 宫位:2 度数:28°3' 星宿:井宿 Pada:3 宿主:Jupiter
+
+  - Mars 星座:1 宫位:12 度数:23°25' 星宿:胃宿 Pada:4 宿主:Venus
+
+  - Mercury 星座:4 宫位:3 [逆行] 度数:24°30' 星宿:柳宿 Pada:3 宿主:Mercury
+
+  - Jupiter 星座:12 宫位:11 [逆行] 度数:19°5' 星宿:奎宿 Pada:1 宿主:Mercury
+
+  - Venus 星座:6 宫位:5 度数:21°45' 星宿:轸宿 Pada:4 宿主:Moon
+
+  - Saturn 星座:4 宫位:3 度数:21°42' 星宿:柳宿 Pada:2 宿主:Mercury
+
+  - NorthNode 星座:12 宫位:11 [逆行] 度数:10°42' 星宿:壁宿 Pada:3 宿主:Saturn
+
+  - SouthNode 星座:6 宫位:5 [逆行] 度数:10°42' 星宿:轸宿 Pada:1 宿主:Moon
+
+
+
+=== 分盘 D5 (Panchamsa) ===
+
+主星摘要:
+
+  - Asc 星座:7 宫位:1 度数:25°17' 星宿:氐宿 Pada:2 宿主:Jupiter
+
+  - Sun 星座:9 宫位:3 度数:2°34' 星宿:尾宿 Pada:1 宿主:SouthNode
+
+  - Moon 星座:12 宫位:6 度数:12°33' 星宿:壁宿 Pada:3 宿主:Saturn
+
+  - Mars 星座:1 宫位:7 度数:29°16' 星宿:昴宿 Pada:1 宿主:Sun
+
+  - Mercury 星座:10 宫位:4 [逆行] 度数:15°38' 星宿:女宿 Pada:2 宿主:Moon
+
+  - Jupiter 星座:7 宫位:1 [逆行] 度数:16°22' 星宿:亢宿 Pada:3 宿主:NorthNode
+
+  - Venus 星座:7 宫位:1 度数:19°41' 星宿:亢宿 Pada:4 宿主:

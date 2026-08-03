@@ -1,0 +1,38 @@
+# Claude Code — personal settings (do not share)
+.claude/settings.json
+.claude/settings.local.json
+.claude/memory/
+
+# Output — generated reports
+output/
+
+# Obsidian vaults
+.obsidian/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Personal chart data (keep your own charts out of git)
+charts/
+命例/
+
+# Personal files (user-specific)
+intership/
+H:/
+.mcp.json
+交接文档-*.md
+面试面经-*.md
+
+# External tools (not part of this project)
+tools/
+
+# mingli-v2 reference — not part of main release
+mingli-v2/
+
+# Python
+__pycache__/
+*.pyc
