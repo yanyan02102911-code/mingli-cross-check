@@ -232,7 +232,7 @@ AI Agent 没有星历表。紫微斗数的级联计算（命宫→五行局→�
 2. 运行 `node .claude/scripts/sync-workflow-methods.mjs`
 3. 运行 `node .claude/scripts/test-all.mjs` 验证
 
-详细的 Skill 拆分说明见 [mingli-v2/](mingli-v2/) 目录。
+每个 Skill 的方法论分为 `references/workflow-standard.md`（标准分析流程）和 `references/workflow-deep.md`（深度展开），由 `sync-workflow-methods.mjs` 自动嵌入 Workflow。
 
 ---
 
