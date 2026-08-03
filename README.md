@@ -50,9 +50,9 @@ Skill 的方法论存放在 `references/` 目录，包含：
 | 模式 | 做什么 | Token 粗估 |
 |------|--------|:--:|
 | **Standard**（默认） | 四体系正式报告 + JSON 摘要交叉比对 + 共识评级 | 120k–200k |
-| **Deep** | 展开完整方法论 + 全文交叉验证 + 独立总览 Agent | 200k–350k |
+| **Deep** | 展开完整方法论 + 全文交叉验证 | 200k–350k |
 
-**Standard 和 Deep 的区别不在输出长度**——都在架构层面。Standard 的交叉 Agent 只读各体系的 JSON 摘要，Deep 才读全文。Standard 不另起总览 Agent（交叉结果自带总览段），Deep 有一个独立的提炼 Agent。
+**Standard 和 Deep 的区别不在输出长度**——都在架构层面。Standard 的交叉 Agent 只读各体系的 JSON 摘要，Deep 才读全文。两者都由交叉 Agent 直接输出总览段。
 
 **Workflow 里可以选择体系。** 不用每次都跑四个——选「八字+紫微」就只跑两个，交叉验证在两体系间比对。维度同样可选，只关心婚姻就只跑婚姻。
 
@@ -78,9 +78,9 @@ Skill 的方法论存放在 `references/` 目录，包含：
 ### 安装
 
 ```bash
-git clone <repo-url> mingli-cross-check
+git clone https://github.com/yanyan02102911-code/mingli-cross-check.git
 cd mingli-cross-check
-npm install   # 仅需安装 Node.js，无额外依赖
+node --version  # 确认 ≥ 18
 ```
 
 ### 运行
@@ -94,28 +94,30 @@ npm install   # 仅需安装 Node.js，无额外依赖
 
 > 详细导出步骤见 [数据准备教程](docs/data-guide.md)。
 
-**第二步：在 Claude Code 中启动交叉验证。**
+**第二步：在 Claude Code 中启动。**
 
 ```bash
 claude
 ```
 
-然后输入：
+**单体系分析**——直接说你要什么：
 
 ```
-/cross-check
+帮我看八字的事业
+用紫微分析婚姻
 ```
 
-你会看到启动引导。看到提示后，一次性回复你的数据。例如：
+Skill 自动加载，按对应体系方法论做完整分析。
 
-```
-方式A，文件在 charts/steve-jobs/ 目录下，男 1955-02-24 19:15 San Francisco，
-全跑，事业+婚姻+财富
-```
+**交叉验证**——输入 `/cross-check` 或说「做四体系交叉验证」，系统会展示启动引导：
 
-> **⚠️ Token 成本提示**：Standard 模式四体系全维度约 180k tokens，Deep 模式约 300k tokens。本项目通过 Claude Code 框架接入模型（开发使用 DeepSeek V4 Flash），具体费用取决于你配置的模型和 API 价格。请确认你了解所用模型的计费方式后再运行。
+1. 提供命盘数据（文件路径或直接粘贴）
+2. 选择体系（如「全跑」或「八字+紫微」）和维度（如「全维度」或「事业+婚姻」）
+3. 选择深度（Standard 默认 / Deep 深度研究）
 
-**第三步：确认运行。** 系统回显数据后，回复「跑」开始分析。
+系统回显数据后，确认无误回复「跑」即开始分析。详见上方「Skill 和 Workflow」章节。
+
+> **⚠️ Token 成本提示**：Standard 模式四体系全维度约 180k tokens，Deep 模式约 300k tokens。本项目通过 Claude Code 框架接入模型，具体费用取决于你配置的模型和 API 价格。
 
 **第四步：查看结果。** 分析完成后，报告写入 `output/<姓名>-<日期>/` 目录：
 
@@ -128,17 +130,6 @@ output/Steve-Jobs-2026-08-03/
 ├── 04-现代占星分析.md    ← 心理占星 + 进化占星
 └── 05-交叉验证.md        ← 逐维度比对 + 一致度评级
 ```
-
----
-
-## 模式
-
-| 模式 | 适用场景 | 说明 |
-|------|----------|------|
-| **Standard**（默认） | 日常分析 | 四体系正式报告 + JSON 摘要交叉验证 |
-| **Deep** | 深度研究 | 完整方法论展开 + 全文交叉验证 + 独立总览 |
-
-快速问题直接使用单体系 Skill（`/命理八字`、`/命理紫微` 等），不启动交叉验证。
 
 ---
 
@@ -163,9 +154,7 @@ output/Steve-Jobs-2026-08-03/
 命盘数据确认 → 四个 Agent 并行分析 → JSON 摘要校验 → 交叉比对 → 总览 → 六文件交付
 ```
 
-每个 Skill 的方法论存放在 `references/` 目录，由同步脚本自动嵌入 Workflow。Workflow 不做外部 API 调用，所有分析继承当前会话模型。
-
-详细设计文档见 [mingli-v2/README.md](mingli-v2/README.md)。
+每个 Skill 的方法论存放在 `references/` 目录，由 `sync-workflow-methods.mjs` 自动嵌入 Workflow。Workflow 不做外部 API 调用，所有分析继承当前会话模型。
 
 ---
 
@@ -231,8 +220,6 @@ AI Agent 没有星历表。紫微斗数的级联计算（命宫→五行局→�
 1. 编辑对应 Skill 的 `references/workflow-standard.md` 或 `references/workflow-deep.md`
 2. 运行 `node .claude/scripts/sync-workflow-methods.mjs`
 3. 运行 `node .claude/scripts/test-all.mjs` 验证
-
-每个 Skill 的方法论分为 `references/workflow-standard.md`（标准分析流程）和 `references/workflow-deep.md`（深度展开），由 `sync-workflow-methods.mjs` 自动嵌入 Workflow。
 
 ---
 

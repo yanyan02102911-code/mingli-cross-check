@@ -6,7 +6,7 @@ export const meta = {
     { title: '独立分析', detail: '各体系使用隔离提示词并行分析' },
     { title: '摘要校验', detail: '解析并验证 CROSS_DIGEST JSON' },
     { title: '交叉比较', detail: '比较数据质量、体系内证据、一致度与直接矛盾' },
-    { title: '总览', detail: '生成有限、可追溯的摘要' },
+    { title: '总览', detail: '从交叉结果提取总览段' },
     { title: '返回', detail: '返回固定六文件映射，由 assemble-results.mjs 写入' },
   ],
 }
@@ -21,6 +21,7 @@ export const meta = {
 //
 //   深度（四体系全维度粗估 200k–350k tokens）:
 //     Workflow({scriptPath: "...", args: { ..., mode: "deep", confirmed: true }})
+//     Deep 无独立总览 Agent——交叉 Agent 直接输出总览段。
 //
 //   启动前必须回显数据并获得用户确认，传入 confirmed: true。
 //   Workflow 返回 schemaVersion 2 结构，由 assemble-results.mjs 写入六文件。
@@ -121,7 +122,7 @@ if (!['standard', 'deep'].includes(mode)) return fail('mode 只支持 standard �
 
 const MODE_CONFIG = {
   standard: { label: '标准报告', tokenEstimate: '四体系全维度粗估 120k–200k', crossUseDigest: true, separateSummary: false },
-  deep:     { label: '深度报告', tokenEstimate: '四体系全维度粗估 200k–350k', crossUseDigest: false, separateSummary: true },
+  deep:     { label: '深度报告', tokenEstimate: '四体系全维度粗估 200k–350k', crossUseDigest: false, separateSummary: false },
 }
 const cfg = MODE_CONFIG[mode]
 const isDeep = mode === 'deep'
@@ -768,7 +769,7 @@ const MODERN_DEEP = `
 - 提供多种可能表现和反例
 - 任何涉及前世/业力的进化占星语言明确标注”不可验证的象征框架”
 - 不把单个配置等同于宿命——同一个出生星盘对应多种可能的人生路径
-`;;;;const METHODS = {
+`;;;;;const METHODS = {
   bazi: { standard: BAZI_STANDARD, deep: [BAZI_STANDARD, BAZI_DEEP].filter(Boolean).join('\n\n') },
   ziwei: { standard: ZIWEI_STANDARD, deep: [ZIWEI_STANDARD, ZIWEI_DEEP].filter(Boolean).join('\n\n') },
   vedic: { standard: VEDIC_STANDARD, deep: [VEDIC_STANDARD, VEDIC_DEEP].filter(Boolean).join('\n\n') },
