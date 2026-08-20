@@ -4,6 +4,14 @@
 
 > **这不是科学预测。** 四个体系的结论是独立符号系统的各自解读，跨体系一致度只反映"叙事复现度"，不代表事实概率。医疗、投资、法律等决策请咨询专业人士。
 
+> **只想马上使用？** 直接跳到[快速开始](#快速开始)：把仓库网址发给能访问 GitHub 和本地文件的 Agent，让它按 README 自动下载、安装并验证。
+
+## 开发与验证环境
+
+本项目主要基于 **Claude Code** 和开发者所使用的 **Codex 5.6 Sol 高级模型配置**完成架构设计、Skill 编写、Workflow 调试与输出结构迭代；**DeepSeek V4 Flash 正式版**参与了部分长提示词、四体系分析和跨平台路径验证。
+
+这些名称记录的是开发与验证环境，不是运行依赖，也不代表官方推荐或效果保证。项目不锁定模型、不内置模型 API，也不会在运行中替用户切换供应商；最终分析质量取决于当前 Agent、所选模型、上下文容量和用户提供的命盘数据。
+
 ---
 
 ## 为什么要做这个
@@ -81,7 +89,90 @@ Skill 的方法论存放在 `references/` 目录，包含：
 
 ## 快速开始
 
-### 兼容范围
+### 最简单的方法：把仓库网址直接发给你的 Agent
+
+如果你的 Agent 能访问 GitHub、读取仓库并写入本地文件，不必先研究目录结构。新开一个对话，把下面这段完整发给它：
+
+```text
+请访问并阅读这个仓库：
+https://github.com/yanyan02102911-code/mingli-cross-check
+
+请按照 README，把其中五个 mingli-* Skills 和必要的 Workflow/脚本安装到当前 Agent 能自动发现的位置。
+
+要求：
+1. 先识别当前宿主是 Claude Code、Codex，还是兼容 .agents/skills 的其他 Agent。
+2. 优先使用仓库根目录的 install.mjs，不要自行改写方法论文件。
+3. 不覆盖或删除本机其他 Skills、设置和私人文件。
+4. 安装后运行仓库提供的无模型测试，确认 Skill、references 和 Workflow 同步。
+5. 最后告诉我：单体系分析怎么提问，四体系交叉验证怎么提问，以及当前宿主是否支持原生 Workflow。
+```
+
+Agent 完成安装后，重启或重新打开对应宿主，然后直接说：
+
+```text
+请使用 mingli-bazi 分析我上传的八字软件盘，只看事业和财富。
+```
+
+或者：
+
+```text
+请使用 mingli-cross-check，读取我上传的四份软件盘，运行 Standard 四体系交叉验证，只分析事业、婚姻和财富。
+```
+
+这也是最通用的使用方式。`/cross-check` 只在部分宿主中存在；自然语言调用不依赖斜杠命令。
+
+> 如果 Agent 不能联网、不能读取 GitHub 或没有本地写入权限，它无法替你自动安装。请下载仓库后使用下面的手动安装方式。
+
+### 手动安装：三步即可使用
+
+第一步，下载仓库：
+
+```bash
+git clone https://github.com/yanyan02102911-code/mingli-cross-check.git
+cd mingli-cross-check
+```
+
+第二步，选择自己的宿主，只运行其中一条命令：
+
+```bash
+# Claude Code：安装到另一个项目
+node install.mjs --target claude --project /path/to/your-project
+
+# Codex：安装到用户级 Skill 目录
+node install.mjs --target codex
+
+# 兼容 .agents/skills 的其他 Agent
+node install.mjs --target agents --project /path/to/your-project
+```
+
+如果你就在本仓库中使用 Claude Code，不需要执行安装命令，直接启动 `claude` 即可。
+
+第三步，重启 Agent，并用自然语言调用对应 Skill。安装器只更新五个 `mingli-*` Skill 和必要脚本，不会删除其他 Skill。
+
+### 安装后怎么提问
+
+只用一个体系时，不需要运行交叉 Workflow：
+
+```text
+请使用 mingli-ziwei，读取 ziwei.txt。
+先解释原始十二宫和四化关系，再分析婚姻维度；每个判断按“原始盘面→对应解释→得出结论”展开。
+```
+
+需要两个、三个或四个体系比较时，再使用 `mingli-cross-check`：
+
+```text
+请使用 mingli-cross-check，读取 charts/example/ 下的命盘文件。
+体系：八字、紫微、印度占星、现代占星。
+模式：Deep。
+维度：全维度。
+具体问题：请按 Q1、Q2 的顺序回答我后面列出的问题。
+
+请先回显命盘来源、体系、模式、维度和问题清单；等我回复“跑”后再开始。
+```
+
+你也可以只选两个或三个体系，例如“八字+紫微”，不必每次全跑。
+
+### 各宿主支持范围
 
 | 宿主 | 单体系 Skill | 四体系交叉验证 | 安装位置 |
 |------|:--:|:--:|------|
@@ -96,47 +187,19 @@ Skill 的方法论存放在 `references/` 目录，包含：
 请使用 mingli-cross-check，对我上传的八字、紫微、印度占星和现代占星软件盘做 Deep 交叉验证。
 ```
 
-项目不绑定模型，也不会在内部切换供应商；分析始终使用用户当前会话选择的模型。开发过程主要在 Claude Code 框架接入 DeepSeek V4 Flash 正式版的环境中验证，也可换成其他具备长上下文和较强推理能力的模型。
+项目不绑定模型，也不会在内部切换供应商；分析始终使用用户当前会话选择的模型。建议选择具备较长上下文、能稳定遵循结构化指令并适合中文长文推理的模型。
 
-### 你需要什么
+### 环境与数据要求
 
 - **Node.js ≥ 18**：用于安装、Claude Workflow 同步和本地测试。
 - **Python ≥ 3.10（可选）**：只有非 Claude Code 的跨平台脚本路径需要。
 - **用户从排盘软件导出的命盘**：不建议让 AI 凭出生信息自行排紫微、印占或现代星盘。
 
-### 1. 下载仓库
-
-```bash
-git clone https://github.com/yanyan02102911-code/mingli-cross-check.git
-cd mingli-cross-check
-node --version
-```
-
 项目没有 npm 依赖，不需要运行 `npm install`。
-
-### 2. 按宿主安装
-
-Claude Code：在本仓库直接启动即可；如果要装到另一个项目：
-
-```bash
-node install.mjs --target claude --project /path/to/your-project
-```
-
-Codex：安装到用户级 Skill 目录，安装后重启 Codex：
-
-```bash
-node install.mjs --target codex
-```
-
-其他兼容 `.agents/skills` 的 Agent：
-
-```bash
-node install.mjs --target agents --project /path/to/your-project
-```
 
 想先确认会写入哪些位置，可在命令末尾添加 `--dry-run`。安装器只覆盖五个 `mingli-*` Skill 和必要脚本，不删除其他 Skill。
 
-### 运行
+### 准备命盘数据并运行
 
 **第一步：准备命盘数据。** 在爱占星中分别导出以下四项并保存为文本文件：
 
@@ -147,11 +210,7 @@ node install.mjs --target agents --project /path/to/your-project
 
 > 详细导出步骤见 [数据准备教程](docs/data-guide.md)。
 
-**第二步：在已安装 Skill 的 Agent 中启动。**
-
-```bash
-claude
-```
+**第二步：重启或重新打开已安装 Skill 的 Agent。** 如果使用 Claude Code，可以在目标项目目录运行 `claude`；Codex 和其他宿主按各自方式重新打开会话即可。
 
 **单体系分析**——直接说你要什么：
 
@@ -171,7 +230,7 @@ Skill 自动加载，按对应体系方法论做完整分析。
 
 系统回显数据后，确认无误回复「跑」即开始分析。详见上方「Skill 和 Workflow」章节。
 
-### 3. 没有 Workflow API 时
+### 没有 Workflow API 时
 
 Codex 或其他 Agent 安装后，可以直接让 Agent 使用 `mingli-cross-check`；Skill 会按宿主能力选择并行或顺序执行。也可以显式生成一个合并任务文件：
 
@@ -204,7 +263,9 @@ python .claude/scripts/cross_check_anywhere.py \
 
 > **⚠️ Token 成本提示**：Standard 模式四体系全维度约 180k tokens，Deep 模式约 300k tokens。本项目通过 Claude Code 框架接入模型，具体费用取决于你配置的模型和 API 价格。
 
-**第四步：查看结果。** 分析完成后，报告写入 `output/<姓名>-<日期>/` 目录：
+### 查看结果
+
+分析完成后，报告写入 `output/<姓名>-<日期>/` 目录：
 
 ```
 output/Steve-Jobs-2026-08-03/
