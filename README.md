@@ -16,6 +16,18 @@
 
 这就是交叉验证的价值：**不是找"正确"的答案，而是看四个独立视角看到的是同一幅画面，还是完全不同的四张图。**
 
+## 核心输出原则：先展示，再解释，最后下结论
+
+本项目不希望只返回一句“你适合什么”或“某件事会怎样”。单体系 Skill 和四体系 Workflow 使用同一套三层解释链：
+
+1. **原始盘面**：先展示用户上传的软件盘中实际存在的数据，例如干支、宫位、星曜、行星度数、相位和时间周期。原始数据、脚本校验结果、AI 推导会分开标注。
+2. **对应解释**：说明这些数据在所采用学派中通常代表什么，它们之间如何生克、制化、飞化、成相或互相修正；有不同传承或相反证据时并列说明。
+3. **得出结论**：先形成能力、需求、压力、资源、关系或行为等中间判断，再回答用户的维度和具体问题，同时写明成立条件、时间条件、证据强度和不能证明什么。
+
+也就是说，报告不会把“一个配置”直接翻译成“一个现实答案”。读者可以从原盘一路对照到规则，再检查结论是怎样形成的。这既方便理解命盘，也方便学习、纠错和复核。
+
+如果用户提出多个候选项，系统只比较用户实际给出的选项，并分别列出支持、反证、成立条件和当前数据无法判断的部分；不会预设价值排序。
+
 ---
 
 ## Skill 和 Workflow：可以一起用，也可以分开用
@@ -28,10 +40,10 @@
 
 | Skill | 体系 | 触发方式 |
 |-------|------|----------|
-| `mingli-bazi` | 八字（子平法 + 盲派 + 纳音 + 神煞） | 说「帮我看八字」「分析一下我的紫微」「看看印度占星」等 |
-| `mingli-ziwei` | 紫微斗数（三合 + 钦天四化 + 飞星 + 河洛） | |
-| `mingli-vedic` | 印度占星（Parashara / Dasha / Yoga / Nakshatra） | |
-| `mingli-modern` | 现代占星（心理占星 + 进化占星） | |
+| `mingli-bazi` | 八字（子平法 + 盲派 + 纳音 + 神煞） | 「帮我看八字」「解释这个四柱」 |
+| `mingli-ziwei` | 紫微斗数（三合 + 钦天四化 + 飞星 + 河洛） | 「分析紫微十二宫」「看大限四化」 |
+| `mingli-vedic` | 印度占星（Parashara / Dasha / Yoga / Nakshatra） | 「分析这张吠陀盘」「看 Dasha」 |
+| `mingli-modern` | 现代占星（心理占星 + 进化占星） | 「分析本命盘」「看相位与行运」 |
 
 **Skill 可以单独使用。** 不需要启动交叉验证。你只想问八字的事业怎么样？直接问就行。只想看看紫微的夫妻宫？直接问。AI 会按照对应体系的方法论做完整分析。
 
@@ -63,25 +75,66 @@ Skill 的方法论存放在 `references/` 目录，包含：
 | 「帮我看看八字的事业」 | 单体系 Skill |
 | 「用紫微分析婚姻，详细点」 | 单体系 Skill（深度模式） |
 | 「四体系全跑，只看事业和婚姻」 | Workflow（Standard，2 维度） |
-| 「四体系全维度 Deep 研究」 | Workflow（Deep，9 维度） |
+| 「四体系全维度 Deep 研究」 | Workflow（Deep，当前默认 10 维度） |
 
 ---
 
 ## 快速开始
 
+### 兼容范围
+
+| 宿主 | 单体系 Skill | 四体系交叉验证 | 安装位置 |
+|------|:--:|:--:|------|
+| Claude Code | ✅ | ✅ 原生 Workflow，可并行 | 项目的 `.claude/` |
+| Codex | ✅ | ✅ Skill + 跨平台脚本 | `~/.codex/skills/` 或 `CODEX_HOME/skills/` |
+| 兼容 SKILL.md 的其他 Agent | ✅ | ✅ 顺序或宿主并行执行 | 项目的 `.agents/skills/` |
+| 不支持 Skill 的终端 AI | 手动读取提示 | ✅ `cross_check_anywhere.py` | 无固定位置 |
+
+不同宿主的命令系统并不相同，所以 `/cross-check` 不是跨平台标准命令。最通用的入口是直接说：
+
+```text
+请使用 mingli-cross-check，对我上传的八字、紫微、印度占星和现代占星软件盘做 Deep 交叉验证。
+```
+
+项目不绑定模型，也不会在内部切换供应商；分析始终使用用户当前会话选择的模型。开发过程主要在 Claude Code 框架接入 DeepSeek V4 Flash 正式版的环境中验证，也可换成其他具备长上下文和较强推理能力的模型。
+
 ### 你需要什么
 
-- **[Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview)** 终端版（`claude` 命令）
-- **Node.js ≥ 18**（`node --version` 确认）
-- **四个命盘**——推荐用[爱占星](https://www.aizhanxing.com/)一次性导出（八字/紫微/印占/现代），一个 App 搞定
+- **Node.js ≥ 18**：用于安装、Claude Workflow 同步和本地测试。
+- **Python ≥ 3.10（可选）**：只有非 Claude Code 的跨平台脚本路径需要。
+- **用户从排盘软件导出的命盘**：不建议让 AI 凭出生信息自行排紫微、印占或现代星盘。
 
-### 安装
+### 1. 下载仓库
 
 ```bash
 git clone https://github.com/yanyan02102911-code/mingli-cross-check.git
 cd mingli-cross-check
-node --version  # 确认 ≥ 18
+node --version
 ```
+
+项目没有 npm 依赖，不需要运行 `npm install`。
+
+### 2. 按宿主安装
+
+Claude Code：在本仓库直接启动即可；如果要装到另一个项目：
+
+```bash
+node install.mjs --target claude --project /path/to/your-project
+```
+
+Codex：安装到用户级 Skill 目录，安装后重启 Codex：
+
+```bash
+node install.mjs --target codex
+```
+
+其他兼容 `.agents/skills` 的 Agent：
+
+```bash
+node install.mjs --target agents --project /path/to/your-project
+```
+
+想先确认会写入哪些位置，可在命令末尾添加 `--dry-run`。安装器只覆盖五个 `mingli-*` Skill 和必要脚本，不删除其他 Skill。
 
 ### 运行
 
@@ -94,7 +147,7 @@ node --version  # 确认 ≥ 18
 
 > 详细导出步骤见 [数据准备教程](docs/data-guide.md)。
 
-**第二步：在 Claude Code 中启动。**
+**第二步：在已安装 Skill 的 Agent 中启动。**
 
 ```bash
 claude
@@ -109,13 +162,45 @@ claude
 
 Skill 自动加载，按对应体系方法论做完整分析。
 
-**交叉验证**——输入 `/cross-check` 或说「做四体系交叉验证」，系统会展示启动引导：
+**交叉验证**——说「做四体系交叉验证」；在支持该 Workflow 命令的 Claude Code 环境中也可输入 `/cross-check`。系统会展示启动引导：
 
 1. 提供命盘数据（文件路径或直接粘贴）
 2. 选择体系（如「全跑」或「八字+紫微」）和维度（如「全维度」或「事业+婚姻」）
-3. 选择深度（Standard 默认 / Deep 深度研究）
+3. 如有具体追问，一次列成问题清单；它们会保留原顺序逐题回答
+4. 选择深度（Standard 默认 / Deep 深度研究）
 
 系统回显数据后，确认无误回复「跑」即开始分析。详见上方「Skill 和 Workflow」章节。
+
+### 3. 没有 Workflow API 时
+
+Codex 或其他 Agent 安装后，可以直接让 Agent 使用 `mingli-cross-check`；Skill 会按宿主能力选择并行或顺序执行。也可以显式生成一个合并任务文件：
+
+```bash
+python .claude/scripts/cross_check_anywhere.py \
+  --name "示例命主" \
+  --birth "1990-01-01 12:00" \
+  --gender "女" \
+  --chart-dir charts/example \
+  --mode standard \
+  --run-mode consolidated
+```
+
+其中 `charts/example/` 使用固定文件名：
+
+```text
+bazi.txt
+ziwei.txt
+vedic.txt
+modern.txt
+```
+
+脚本不会调用外部模型 API；它只把最新版 Skill references 组装成任务文件，并在分析完成后把结果整理为六份 Markdown。全部结果写好后运行：
+
+```bash
+python .claude/scripts/cross_check_anywhere.py \
+  --run-mode assemble \
+  --prompt-dir output/prompts-示例命主-YYYY-MM-DD
+```
 
 > **⚠️ Token 成本提示**：Standard 模式四体系全维度约 180k tokens，Deep 模式约 300k tokens。本项目通过 Claude Code 框架接入模型，具体费用取决于你配置的模型和 API 价格。
 
@@ -151,7 +236,7 @@ output/Steve-Jobs-2026-08-03/
 四个 Skill 各自独立加载，体系间禁止术语交叉。Workflow 负责编排：
 
 ```
-命盘数据确认 → 四个 Agent 并行分析 → JSON 摘要校验 → 交叉比对 → 总览 → 六文件交付
+命盘数据确认 → 四个 Agent 按三层解释链并行分析 → JSON 摘要校验 → 推理审计与交叉比对 → 总览 → 六文件交付
 ```
 
 每个 Skill 的方法论存放在 `references/` 目录，由 `sync-workflow-methods.mjs` 自动嵌入 Workflow。Workflow 不做外部 API 调用，所有分析继承当前会话模型。
@@ -173,14 +258,18 @@ output/Steve-Jobs-2026-08-03/
 └── scripts/
     ├── sync-workflow-methods.mjs # 从 references/ 同步方法论到 Workflow
     ├── assemble-results.mjs      # 确定性写入 + 校验六文件
+    ├── cross_check_anywhere.py   # Codex / 通用 Agent 的跨平台路径
     └── test-all.mjs              # 本地测试入口
 ```
+
+仓库根目录的 `install.mjs` 负责把这套文件复制到不同宿主能够发现的位置；`.github/workflows/ci.yml` 会在每次推送和 PR 时自动检查 references 与 Workflow 是否同步，并运行无模型 smoke tests。
 
 ---
 
 ## 已知限制
 
-- **需要 Claude Code**。没有 Claude Code 终端版的用户只能手动使用 prompts 模式（`cross_check_anywhere.py`），体验降级明显。
+- **跨宿主能力不完全相同**。Claude Code 可以使用原生 Workflow 并行 Agent；其他宿主是否并行取决于自身能力，最保守的兼容路径是 `cross_check_anywhere.py` 顺序任务。
+- **Skill 发现机制不是统一标准**。本项目覆盖 Claude Code 的 `.claude/skills`、Codex 的用户级 skills 目录和常见的 `.agents/skills`；完全不支持 `SKILL.md` 的 Agent 需要手动发送合并任务文件。
 - **不是即插即用的 Web 服务**。没有 GUI、没有 API 端点、没有在线 Demo。一切在终端里完成。
 - **模型质量影响输出**。不同模型对命理方法论的理解能力差异很大。建议使用推理能力较强的模型（Claude Sonnet 4+ / Opus 4+ / DeepSeek V3+）。
 - **Token 消耗不低**。Standard 全维度约 180k tokens，Deep 约 300k。部分模型按 token 计费，费用自负。
@@ -215,6 +304,18 @@ AI Agent 没有星历表。紫微斗数的级联计算（命宫→五行局→�
 2. 运行 `node .claude/scripts/test-all.mjs` 确认本地环境正常
 3. 提 Issue 附上错误日志（脱敏后）
 
+### 为什么提示 Unknown command: /cross-check？
+
+因为斜杠命令由宿主实现，不是 Skill 的通用标准。请先按上面的宿主方式安装，然后直接用自然语言说「使用 mingli-cross-check 做四体系交叉验证」。Claude Code 中还应确认仓库的 `.claude/workflows/cross-check.js` 已安装。
+
+### 如何更新？
+
+在仓库目录执行 `git pull`，然后重复对应的 `node install.mjs --target ...` 命令。安装器只更新五个命理 Skill，不碰其他 Agent 配置。
+
+### 会不会上传我的命盘？
+
+不会自动上传。本项目没有遥测和外部模型 API 调用；但你所使用的 AI 宿主本身如何处理会话内容，取决于其服务条款。仓库已忽略 `charts/`、`命例/`、`output/` 和本地设置。提交 Issue 前仍应人工删除姓名、出生资料、文件路径、API Key 和报告正文。
+
 ### 想修改方法论怎么办？
 
 1. 编辑对应 Skill 的 `references/workflow-standard.md` 或 `references/workflow-deep.md`
@@ -225,8 +326,8 @@ AI Agent 没有星历表。紫微斗数的级联计算（命宫→五行局→�
 
 ## 贡献
 
-欢迎提交 Issue 或 PR。修改方法论请遵循 `references/` → `sync` → `test` 的工作流。
+欢迎提交 Issue 或 PR，尤其欢迎提供有明确学派与出处的方法论纠错。请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。修改方法论请遵循 `references/` → `sync` → `test` 的工作流；提交前务必移除真实命盘和个人信息。
 
 ## 许可证
 
-MIT
+[MIT](LICENSE)
