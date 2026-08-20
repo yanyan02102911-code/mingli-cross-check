@@ -1,0 +1,54 @@
+name: 安装或运行问题
+description: 报告安装、Skill 发现、Workflow、脚本或输出文件问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先删除姓名、生日、命盘正文、API Key、Token、Cookie 和本地私人路径。
+  - type: dropdown
+    id: host
+    attributes:
+      label: 使用的宿主
+      options:
+        - Claude Code
+        - Codex
+        - 其他兼容 SKILL.md 的 Agent
+        - 跨平台 Python 脚本
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 环境版本
+      description: 操作系统、Node/Python 版本、Agent 版本
+      placeholder: Windows 11, Node 20, Codex ...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请使用脱敏后的示例描述最短复现路径
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果与错误信息
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 隐私确认
+      options:
+        - label: 我已删除真实命盘、身份信息和密钥
+          required: true

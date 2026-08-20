@@ -1,0 +1,48 @@
+name: Validate Skills and Workflow
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify generated workflow is synchronized
+        run: node .claude/scripts/sync-workflow-methods.mjs --check
+
+      - name: Validate Skill structure and policy
+        run: node .claude/scripts/validate-skills.mjs
+
+      - name: Run Workflow smoke tests
+        run: node .claude/scripts/test-cross-check.mjs
+
+      - name: Run day-pillar tests
+        run: node .claude/skills/mingli-bazi/scripts/test-day-pillar.mjs
+
+      - name: Validate cross-platform prompt builder
+        run: |
+          python -m py_compile .claude/scripts/cross_check_anywhere.py
+          python .claude/scripts/cross_check_anywhere.py --name "CI example" --systems bazi --bazi "年柱甲子 月柱丙寅 日柱戊辰 时柱庚申" --output "$RUNNER_TEMP/prompts" --run-mode consolidated
+
+      - name: Smoke-test cross-platform installer
+        run: |
+          node install.mjs --target agents --project "$RUNNER_TEMP/mingli-install"
+          test -f "$RUNNER_TEMP/mingli-install/.agents/skills/mingli-cross-check/SKILL.md"
+          test -f "$RUNNER_TEMP/mingli-install/.agents/skills/mingli-cross-check/scripts/cross_check_anywhere.py"

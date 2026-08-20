@@ -163,4 +163,25 @@ const badRun = await execute(
 assert.ok(badRun.digestErrors.bazi)
 console.log('  PASS: JSON 摘要解析失败不阻断')
 
+// Test 14: Detailed reasoning contract and specific questions reach analysts/cross-check
+const withQuestions = await run({
+  ...completeCharts,
+  questions: ['候选方案甲和候选方案乙，哪一个更符合盘面？'],
+})
+assert.deepEqual(withQuestions.result.questions, ['候选方案甲和候选方案乙，哪一个更符合盘面？'])
+const analystPrompts = withQuestions.calls.filter(call => ['八字', '紫微斗数', '印度占星', '现代占星'].includes(call.options.label))
+assert.equal(analystPrompts.length, 4)
+for (const call of analystPrompts) {
+  assert.match(call.prompt, /原始盘面/)
+  assert.match(call.prompt, /对应解释/)
+  assert.match(call.prompt, /得出结论/)
+  assert.match(call.prompt, /只比较用户实际给出的候选项/)
+  assert.match(call.prompt, /Q1\. 候选方案甲和候选方案乙/)
+}
+const crossPrompt = withQuestions.calls.find(call => call.options.label === '交叉比较')?.prompt || ''
+assert.match(crossPrompt, /共同语义与推理审计/)
+assert.match(crossPrompt, /不使用星级/)
+assert.match(crossPrompt, /Q1\. 候选方案甲和候选方案乙/)
+console.log('  PASS: 可追溯推理、通用候选项比较与问题清单')
+
 console.log('\ncross-check workflow smoke tests: PASS')

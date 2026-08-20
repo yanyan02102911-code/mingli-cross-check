@@ -1,0 +1,52 @@
+name: 方法论纠错
+description: 提交八字、紫微、印度占星、现代占星规则或出处修正
+title: "[规则纠错] "
+labels: [methodology]
+body:
+  - type: dropdown
+    id: system
+    attributes:
+      label: 体系
+      options:
+        - 八字
+        - 紫微斗数
+        - 印度占星
+        - 现代占星
+        - 交叉验证方法
+    validations:
+      required: true
+  - type: input
+    id: school
+    attributes:
+      label: 学派或口径
+      placeholder: 子平法、钦天四化、Parashara、心理占星等
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: 当前规则或问题
+      description: 请引用仓库文件与段落，不要粘贴私人命盘
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 建议修正
+      description: 说明正确规则、适用条件、不同说法与推理影响
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 出处
+      description: 古籍请写书名、篇章和版本；现代资料请给公开链接或出版信息
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 隐私确认
+      options:
+        - label: 内容不含真实命主资料、私人文件或密钥
+          required: true
